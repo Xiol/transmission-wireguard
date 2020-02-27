@@ -19,6 +19,8 @@ $ docker build --pull -t wireguard:latest .
 * Bring everything up - `docker-compose up -d`
 * Connect to Transmission on port 9091 or proxy using nginx (from *gasp* the host). To proxy to yourdomain.com/transmission/:
 
+(Actually, this is probably wrong. The aliases clearly won't work with the containers, but probably work for me because I still have a now inactive copy of Transmission installed on the host machine. Guess that's never getting removed because it's working. 🤷)
+
 ```
 http {
     upstream transmission {
