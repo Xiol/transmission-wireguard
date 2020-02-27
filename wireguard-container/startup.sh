@@ -2,8 +2,8 @@
 set -euo pipefail
 
 sed -i "s/__VPN_ADDR__/$VPN_ADDRESS/" /etc/wireguard/wg1.conf
-sed -i "s/__PRIVATE_KEY__/$PRIVATE_KEY/" /etc/wireguard/wg1.conf
-sed -i "s/__PUBLIC_KEY__/$REMOTE_PUBLIC_KEY/" /etc/wireguard/wg1.conf
+sed -i "s#__PRIVATE_KEY__#$PRIVATE_KEY#" /etc/wireguard/wg1.conf
+sed -i "s#__PUBLIC_KEY__#$PEER_PUBLIC_KEY#" /etc/wireguard/wg1.conf
 sed -i "s/__ENDPOINT__/$ENDPOINT/" /etc/wireguard/wg1.conf
 sed -i "s/__PORT__/$PORT/" /etc/wireguard/wg1.conf
 VPN_CHECK_INTERVAL=${VPN_CHECK_INTERVAL:-10}
