@@ -1,0 +1,39 @@
+---
+
+version: "3"
+services:
+  wireguard:
+    container_name: wireguard
+    image: wireguard:latest
+    restart: unless-stopped
+    environment:
+      - VPN_ADDRESS=10.0.0.1
+      - REMOTE_PUBLIC_KEY=asdfasdfasdf
+      - ENDPOINT=1.2.3.4
+      - PORT=51820
+      - PRIVATE_KEY=asdfasdfasdf
+      - VPN_CHECK_INTERVAL=10
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    ports:
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+
+  transmission:
+    image: linuxserver/transmission
+    container_name: transmission
+    environment:
+      - PUID=1000
+      - PGID=1002
+      - TZ=Europe/London
+      - TRANSMISSION_WEB_HOME=/combustion-release/
+    volumes:
+      - /etc/transmission-daemon:/config
+      - /srv/storage/torrents:/downloads
+      - /srv/storage/torrents/watch:/watch
+    restart: unless-stopped
+    network_mode: "service:wireguard"
+    depends_on: 
+      - wireguard
